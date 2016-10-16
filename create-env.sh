@@ -1,5 +1,15 @@
 #!/bin/bash 
 echo "Let us Create a world of Cloud"
+echo "Wait! I will not execute until the paramters are checked, this is how I am programmed"
+if [ $# != 5 ]; then
+echo "Counting, please wait"
+echo "Testing patience?, this is how it works in this world"
+echo "Sorry, parameters are either more or less than the threshold"
+exit 1
+else
+echo "Parameters accepted"
+echo "Let's execute the script"
+fi
 echo "Let us first create a Load Balancer named gjhaveri"
 aws elb create-load-balancer --load-balancer-name gjhaveri --listeners Protocol=Http,LoadBalancerPort=80,InstanceProtocol=Http,InstancePort=80 --subnets subnet-b36445d7
 echo "Creating Launch Configuration named ubuntuserver"
