@@ -17,3 +17,8 @@ aws autoscaling create-launch-configuration --launch-configuration-name $4 --ima
 echo "Finally let's create an auto-scaling-group named serverdemo"
 aws autoscaling create-auto-scaling-group --auto-scaling-group-name serverdemo --launch-configuration-name ubuntuserver --load-balancer-names gjhaveri --min-size 1 --max-size 5 --desired-capacity $5 --vpc-zone-identifier subnet-b36445d7
 echo "Don't forget to kill everything else jhajek will not help you to get your money!! Boom and out of here..."
+#echo "Adding a Simple Notification Service to our Application"
+#echo "let us create a topic first"
+#aws sns create-topic --name cloudassignment
+#echo "Lets Subscribe tothis topic in order to get started"
+# aws sns subscribe --topic-arn arn:aws:sns:us-west-2:599404884853:cloudassignment --protocol email --notification-endpoint itsmeasgaurav@gmail.com
