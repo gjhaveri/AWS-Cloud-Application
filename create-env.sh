@@ -25,6 +25,6 @@ echo "Don't forget to kill everything else jhajek will not help you to get your 
 #echo "Let us Create a SQS Queue"
 #aws sqs create-queue --queue-name assignmentqueue
 #echo "Time to Send the message"
-# aws sqs send-message --queue-url https://sqs.us-west-2.amazonaws.com/599404884853/assignmentqueue --message-body "I love travelling"
+# aws sqs send-message --queue-url $7 --message-body $8
 #echo "Let us check if we can receive the same message or not"
-# aws sqs receive-message --queue-url https://sqs.us-west-2.amazonaws.com/599404884853/assignmentqueue
+# aws sqs receive-message --queue-url $7
