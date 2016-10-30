@@ -21,4 +21,4 @@ echo "Don't forget to kill everything else jhajek will not help you to get your 
 #echo "let us create a topic first"
 #aws sns create-topic --name cloudassignment
 #echo "Lets Subscribe tothis topic in order to get started"
-# aws sns subscribe --topic-arn arn:aws:sns:us-west-2:599404884853:cloudassignment --protocol email --notification-endpoint itsmeasgaurav@gmail.com
+# aws sns subscribe --topic-arn $6 --protocol email --notification-endpoint itsmeasgaurav@gmail.com
