@@ -1,33 +1,49 @@
-<?php session_start(); ?>
+
+
+<?php
+echo"Hello World";
+
+require 'vendor/autoload.php';
+
+$s3 = new Aws\S3\S3Client([
+    'version' => 'latest',
+    'region'  => 'us-west-2'
+]);
+
+#$s3 = $sdk->createS3();
+$result = $s3->listBuckets();
+
+foreach ($result['Buckets'] as $bucket) {
+    echo $bucket['Name'] . "\n";
+}
+
+$key = 'switchonarex.png';
+$result = $s3->putObject(array(
+'ACL'=>'public-read',
+'Bucket'=>'raw-gjh',
+'Key' => $key,
+'SourceFile'=> '/var/www/html/switchonarex.png'
+));
+$url=$result['ObjectURL'];
+echo $url;
+
+?>
+
+<!DOCTYPE html>
+<form action="s3test.php">
+
 <html>
-<head><title>Hello app</title>
-</head>
 <body>
 
-<!-- The data encoding type, enctype, MUST be specified as below -->
-<form enctype="multipart/form-data" action="result.php" method="POST">
-    <!-- MAX_FILE_SIZE must precede the file input field -->
-    <input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
-    <!-- Name of input element determines name in $_FILES array -->
-    Send this file: <input name="userfile" type="file" /><br />
-Enter Email of user: <input type="email" name="useremail"><br />
-Enter Phone of user (1-XXX-XXX-XXXX): <input type="phone" name="phone">
 
-
-<input type="submit" value="Send File" />
-</form>
-<hr />
-<!-- The data encoding type, enctype, MUST be specified as below -->
-<form enctype="multipart/form-data" action="gallery.php" method="POST">
-    
-Enter Email of user for gallery to browse: <input type="email" name="email">
-<input type="submit" value="Load Gallery" />
+<input type="submit" value="S3test">
 </form>
 
-
+<form action="dbtest.php">
+<input type="submit" value="dbtest">
+</form>
 </body>
 </html>
-
 
 
 
