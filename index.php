@@ -22,7 +22,7 @@ $result = $s3->putObject(array(
 'ACL'=>'public-read',
 'Bucket'=>'raw-gjh',
 'Key' => $key,
-'SourceFile'=> '/var/www/html/switchonarex.png'
+'SourceFile'=> '/home/ubuntu/gjhaveri/switchonarex.png'
 ));
 $url=$result['ObjectURL'];
 echo $url;
