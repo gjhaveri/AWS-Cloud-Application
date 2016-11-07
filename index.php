@@ -24,11 +24,11 @@ foreach ($result['Buckets'] as $bucket) {
 <body>
 
 
-<input type="submit" value="S3test">
+<input type="submit" value="Load Image">
 </form>
 
 <form action="dbtest.php">
-<input type="submit" value="dbtest">
+<input type="submit" value="Records">
 </form>
 </body>
 </html>
