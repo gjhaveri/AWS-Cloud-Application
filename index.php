@@ -1,5 +1,5 @@
 <?php
-<b>echo"Welcome to the Cloud Native Application \n"<b>;
+echo"<b> Welcome to the Cloud Native Application \n <b>";
 
 require 'vendor/autoload.php';
 
@@ -32,20 +32,3 @@ foreach ($result['Buckets'] as $bucket) {
 </form>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
