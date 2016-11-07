@@ -27,7 +27,7 @@ $result= mysqli_query($link,$retrieve);
 if ($result->num_rows > 0) {
         // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo "<tr><td>".$row["ID"]."</td><td>".$row["Name"]." ".$row["Age"]."</td></tr>";
+        echo "<tr><td><t>".$row["ID"]."</t></td><td><t>".$row["Name"]." ".$row["Age"]."</t></td></tr>";
     }
 }
 $link->close();
