@@ -5,7 +5,7 @@ git clone git@github.com:illinoistech-itm/gjhaveri.git /home/ubuntu/gjhaveri
 sudo apt-get update
 sudo apt-get -y install git apache2 php-xml libapache2-mod-php php php-mysql curl php-curl zip unzip
 
-export COMPOSER_HOME=/root && /usr/bin/composer.phar self-update 1.0.0-alpha11
+export COMPOSER_HOME=/home/ubuntu
 
 sudo curl -sS https://getcomposer.org/installer | php
 
