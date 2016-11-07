@@ -15,7 +15,7 @@ sudo systemctl start apache2
 	
 sudo mv vendor /var/www/html/
 
-sudo rm index.html /var/www/html/
+#sudo rm index.html /var/www/html/
 
 sudo git clone https://github.com/illinoistech-itm/gjhaveri
 
