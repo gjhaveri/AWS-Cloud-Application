@@ -1,53 +1,38 @@
 <?php
+echo"<b> IMAGE RETRIEVED!</b>";
 
-echo "Hello world";
-$link = mysqli_connect("clouddatabases.clbbdifdgtxm.us-west-2.rds.amazonaws.com:3306","awsdatabase","awsdatabase","school") or die("Error" . mysqli_error($link));
+require 'vendor/autoload.php';
 
-//echo "Here is the result: " . $link;
+$s3 = new Aws\S3\S3Client([
+    'version' => 'latest',
+    'region'  => 'us-west-2'
+]);
 
+#$s3 = $sdk->createS3();
+$result = $s3->listBuckets();
 
-$sql1 = "CREATE DATABASE IF NOT EXISTS school";
-if ($link->query($sql1) === TRUE) {
-echo "Database created successfully";
-} else {
-echo "Error creating database: " . $link->error;
+foreach ($result['Buckets'] as $bucket) {
+    echo "\n" . $bucket['Name'] . "\n";
 }
 
-$sql = "CREATE TABLE students
-(
-ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-Name VARCHAR(255),
-Age int(3)
-)";
-
-$link->query($sql);
-
-$sql2 = "INSERT INTO `students` (`name`,`age`) VALUES ('gaurav',21),('matthew',29),('alberto',27),('Zalewski',26),('Alem',32)";
-if ($link->query($sql2) === TRUE) {
-echo "Data inserted successfully";
-} else {
-echo "Error creating database: " . $link->error;
-}
-
-
-$retrieve="SELECT * FROM students";
-#echo "Data is here" . $retrieve;
-
-$result= mysqli_query($link,$retrieve);
-
-
-if ($result->num_rows > 0) {
-        // output data of each row
-    while($row = $result->fetch_assoc()) {
-        echo "<tr><td>".$row["ID"]."</td><td>".$row["Name"]." ".$row["Age"]."</td></tr>";
-    }
-}
-$link->close();
-
- $result1 = mysqli_query('TRUNCATE TABLE school');
-
- if ($result1) {
-   echo "Request ID table has been truncated";
- }
-
+$key = 'switchonarex.png';
+$result = $s3->putObject(array(
+'ACL'=>'public-read',
+'Bucket'=>'raw-gjh',
+'Key' => $key,
+'SourceFile'=> '/home/ubuntu/gjhaveri/switchonarex.png'
+));
+$url=$result['ObjectURL'];
+echo $url;
 ?>
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Hello Dino</h2>
+<img src="https://s3-us-west-2.amazonaws.com/raw-gjh/switchonarex.png" alt="IIT">
+
+</body>
+</html>
+
