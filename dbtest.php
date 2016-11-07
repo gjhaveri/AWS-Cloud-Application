@@ -1,7 +1,7 @@
 <?php
 
 echo "Hello world";
-$link = mysqli_connect("clouddatabase.clbbdifdgtxm.us-west-2.rds.amazonaws.com:3306","awsdatabase","awsdatabase","gjhaverirds") or die("Error" . mysqli_error($link));
+$link = mysqli_connect("clouddatabases.clbbdifdgtxm.us-west-2.rds.amazonaws.com:3306","awsdatabase","awsdatabase","gjhaverirds") or die("Error" . mysqli_error($link));
 
 //echo "Here is the result: " . $link;
 
