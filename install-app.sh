@@ -20,12 +20,12 @@ sudo php composer.phar require aws/aws-sdk-php
 sudo systemctl enable apache2
 sudo systemctl start apache2
 
+sudo rm -r /var/www/html/*
 sudo mv vendor /var/www/html/
 
-#sudo rm index.html /var/www/html/
 
-sudo git clone https://github.com/illinoistech-itm/gjhaveri.git
+
+#sudo git clone https://github.com/illinoistech-itm/gjhaveri.git
 
 sudo mv /home/ubuntu/gjhaveri/*.php  /var/www/html/
 #git@github.com:illinoistech-itm/gjhaveri.git /home/ubuntu/gjhaveri
-
