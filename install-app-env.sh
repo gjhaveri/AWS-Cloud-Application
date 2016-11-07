@@ -26,4 +26,3 @@ aws s3 mb s3://$2
 
 
 #aws s3 cp ./gj.png s3://raw-gjh
-
