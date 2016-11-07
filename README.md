@@ -18,7 +18,7 @@ IAM-Profile: developer
 8. Composer.phar and other composer files are stored in /root folder 
 9. all the php files will be stored in /var/www/html
 10. Copy the url of the instance, a web page will be displayed with 2 buttons.
-11. On clicking s3test will load the image by pulling from the bucket.
-12.On Clicking dbtest will display the records of the table.
+11. On clicking Load Image will load the image by pulling from the bucket.
+12.On Clicking Records will display the records of the table by fetching it from the database.
 13. Destroy.sh will destroy the applicational processes.
 
