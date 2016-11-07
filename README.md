@@ -2,6 +2,11 @@
 
 Steps to make it work:
 
+Usage of Only 3 scripts in the entire process: 
+install-app-env.sh 
+install-env.sh
+install-app.sh
+
 1. Run the install-app-env.sh script by providing the positional parameters raw-gjh finished-gjh
 2. This will create your RDS Database, SNS Service, SQS Service, Make Buckets.
 3. Run the install-env.sh script by passing 6 positionsal parameters.
