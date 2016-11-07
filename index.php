@@ -1,5 +1,3 @@
-
-
 <?php
 <b>echo"Welcome to the Cloud Native Application \n"<b>;
 
