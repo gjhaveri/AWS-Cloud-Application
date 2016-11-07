@@ -17,16 +17,6 @@ foreach ($result['Buckets'] as $bucket) {
     echo $bucket['Name'] . "\n";
 }
 
-$key = 'switchonarex.png';
-$result = $s3->putObject(array(
-'ACL'=>'public-read',
-'Bucket'=>'raw-gjh',
-'Key' => $key,
-'SourceFile'=> '/home/ubuntu/gjhaveri/switchonarex.png'
-));
-$url=$result['ObjectURL'];
-echo $url;
-
 ?>
 
 <!DOCTYPE html>
