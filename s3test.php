@@ -1,5 +1,5 @@
 <?php
-echo"Hello World";
+echo"<b> IMAGE RETRIEVED!</b>";
 
 require 'vendor/autoload.php';
 
@@ -12,7 +12,7 @@ $s3 = new Aws\S3\S3Client([
 $result = $s3->listBuckets();
 
 foreach ($result['Buckets'] as $bucket) {
-    echo $bucket['Name'] . "\n";
+    echo "\n" . $bucket['Name'] . "\n";
 }
 
 $key = 'switchonarex.png';
