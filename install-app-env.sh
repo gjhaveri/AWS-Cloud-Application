@@ -23,6 +23,3 @@ aws sqs create-queue --queue-name assignmentqueue
 echo "Let us create two buckets"
 aws s3 mb s3://$1
 aws s3 mb s3://$2
-
-
-#aws s3 cp ./gj.png s3://raw-gjh
