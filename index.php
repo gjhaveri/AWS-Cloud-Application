@@ -23,3 +23,52 @@
 </form>
 </body>
 </html>
+
+<?php
+require 'vendor/autoload.php';
+
+
+$client = new Aws\Rds\RdsClient([
+  'region'            => 'us-west-2',
+    'version'           => 'latest'
+]);
+
+
+$result = $client->describeDBInstances([
+    'DBInstanceIdentifier' => 'clouddatabases'
+]);
+
+
+$endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
+echo $endpoint . "\n";
+
+$link = mysqli_connect($endpoint,"awsdatabase","awsdatabase","school") or die("Error " . mysqli_error($link));
+
+/* check connection */
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+}
+
+$sql1 = "CREATE DATABASE IF NOT EXISTS school";
+if ($link->query($sql1) === TRUE) {
+echo "Database created successfully";
+
+} else {
+echo "Error creating database: " . $link->error;
+}
+$sql = "CREATE TABLE login
+(
+userid VARCHAR(255),
+password VARCHAR(30),
+account VARCHAR(20)
+)";
+
+$link->query($sql);
+$sql2 = "INSERT INTO `login` (`userid`,`password`,`account`) VALUES ('gjhaveri@hawk.iit.edu','gaurav','controller'),('jhajek@iit.edu','ilovebunnies','user'),('a@iit.edu','iit','user')";
+if ($link->query($sql2) === TRUE) {
+echo "Data inserted successfully";
+} else {
+echo "Error creating database: " . $link->error;
+}
+?>
