@@ -1,16 +1,13 @@
 <?php
 session_start();
-echo $_POST['email'] . "\n";
+echo $username . "\n";
 
-$email = $_POST['email'];
+$email = $_SESSION['usernames'];
 
-echo "Your email is: " . $email . "\n";
+echo "<b>Hello Cloud User, you are Welcomed to this world</b><br>" . "\n";
+echo "<br>Your email is: " . $email . "\n";
 
-$_SESSION['email'] = $_POST['email'];
-
-
-
-
+$_SESSION['userid'] = $_POST['userid'];
 ?>
 
 <html>
@@ -18,7 +15,6 @@ $_SESSION['email'] = $_POST['email'];
 </head>
 <body>
 <hr />
-<a href="gallery.php"> Gallery </a> | <a href="upload.php"> Upload </a>
+<a href="gallery.php"> Gallery </a> | <a href="upload.php"> Upload </a> | <a href="Uploader.php"> Uploader </a> | <a href="admin.php"> Admin </a>
 
 </body></html>
-
