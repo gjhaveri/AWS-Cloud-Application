@@ -1,63 +1,57 @@
 <?php
- -echo "Hello world";
- -$link = mysqli_connect("clouddatabases.clbbdifdgtxm.us-west-2.rds.amazonaws.com:3306","awsdatabase","awsdatabase","school") or die("Error" . mysqli_error($link));
- -//echo "Here is the result: " . $link;
- -$sql1 = "CREATE DATABASE IF NOT EXISTS school";
- -if ($link->query($sql1) === TRUE) {
- -echo "Database created successfully";
- -} else {
- -echo "Error creating database: " . $link->error;
- -}
- -$sql = "CREATE TABLE students
- -(
- -ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
- -Name VARCHAR(255),
- -Age int(3)
- -)";
- -$link->query($sql);
- -$sql2 = "INSERT INTO `students` (`name`,`age`) VALUES ('gaurav',21),('matthew',29),('alberto',27),('Zalewski',26),('Alem',32)";
- -if ($link->query($sql2) === TRUE) {
- -echo "Data inserted successfully";
- -} else {
- -echo "Error creating database: " . $link->error;
- -}
- -$retrieve="SELECT * FROM students";
- -#echo "Data is here" . $retrieve;
- -$result= mysqli_query($link,$retrieve);
- -if ($result->num_rows > 0) {
- -        // output data of each row
- -    while($row = $result->fetch_assoc()) {
- -        echo "<tr><td><t>".$row["ID"]."</t></td><td><t>".$row["Name"]." ".$row["Age"]."</t></td></tr>";
- -    }
- -}
- -$link->close();
- - $result1 = mysqli_query('TRUNCATE TABLE school');
- - if ($result1) {
- -   echo "Request ID table has been truncated";
- - }
- -?>
- +<!DOCTYPE html>
- +
- +<html lang="en">
- +<head>
- +<meta charset="UTF-8">
- +<title>Add Record Form</title>
- +</head>
- +<body>
- +<form action="dbtest.php" method="post">
- +    <p>
- +        <label for="userid">User Name:</label>
- +        <input type="text" name="userid" id="userid">
- +    </p>
- +    <p>
- +        <label for="password">Password:</label>
- +        <input type="text" name="password" id="password">
- +    </p>
- +    <p>
- +        <label for="account">Account:</label>
- +        <input type="text" name="email" id="account">
- +    </p>
- +    <input type="submit" value="Submit">
- +</form>
- +</body>
- +</html>
+session_start();
+require 'vendor/autoload.php';
+
+
+$client = new Aws\Rds\RdsClient([
+  'region'            => 'us-west-2',
+    'version'           => 'latest'
+]);
+
+
+$result = $client->describeDBInstances([
+    'DBInstanceIdentifier' => 'clouddatabases'
+]);
+
+
+$endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
+echo $endpoint . "\n";
+
+$link = mysqli_connect($endpoint,"awsdatabase","awsdatabase","school") or die("Error " . mysqli_error($link));
+
+/* check connection */
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+}
+
+$username= $_POST['userid'];
+$pwd= $_POST['password'];
+
+$_SESSION['usernames']=$username;
+
+
+
+#$userid= (isset($_POST['userid'])    ? $_POST['userid']    : '');
+ #      $password    = (isset($_POST['password'])    ? $_POST['password']    : '');
+  #         $account= (isset($_POST['account'])    ? $_POST['account']    : '');
+        $sql = "SELECT * FROM login WHERE userid = '$username' and password = '$pwd'";
+
+                $result=mysqli_query($link,$sql);
+        $count=mysqli_num_rows($result);
+
+
+#echo "Data is here" . $retrieve;
+#$result= mysqli_query($link,$retrieve);
+if ($result->num_rows > 0) {
+        // output data of each row
+    #while($row = $result->fetch_assoc()) {
+     #   echo "<tr><td><t>".$row["ID"]."</t></td><td><t>".$row["Name"]." ".$row["Age"]."</t></td></tr>";
+ header("location:welcome.php");
+        }
+        else {
+
+
+       echo ("incorrect password");
+    }
+?>
