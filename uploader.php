@@ -118,6 +118,7 @@ if (!($stmt = $link->prepare("INSERT INTO recordings (id, email, phone, s3rawurl
 
 $stmt->bind_param("ssssii",$email,$phone,$s3rawurl,$s3finishedurl,$status,$receipt);
 
+$_SESSION['receipt']=$receipt;
 
 if (!$stmt->execute()) {
             echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
