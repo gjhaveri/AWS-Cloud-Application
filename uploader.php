@@ -68,24 +68,55 @@ if (mysqli_connect_errno()) {
     exit();
 }
 
+$sql1 = "CREATE DATABASE IF NOT EXISTS school";
+if ($link->query($sql1) === TRUE) {
+echo "Database created successfully";
+
+} else {
+echo "Error creating database: " . $link->error;
+}
+
+$create_tbl = "CREATE TABLE recordings
+(
+id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+email VARCHAR(32),
+phone VARCHAR(32),
+s3rawurl VARCHAR(32),
+s3finishedurl VARCHAR(32),
+status INT(1),
+receipt VARCHAR(256)
+)";
+
+$link->query($create_tbl);
+
+
+
+
 // code to insert new record
 /* Prepared statement, stage 1: prepare */
 
-if (!($stmt = $link->prepare("INSERT INTO records (id, email, phone, s3-raw-url, s3-finished-url, status,reciept) VALUES (NULL,?,?,?,?,?,?)"))) {
-    echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-}
-
-
 $email = $_SESSION['email'];
 $phone = '2248177955';
-$s3finishedurl = ' ';
+//$s3finishedurl = ' ';
 $s3rawurl = ' ';
+$s3finishedurl = ' ';
 $status = 0;
 $receipt = md5($url);
-// prepared statements will not accept literals (pass by reference) in bind_params, you need to declare variables
-//$stmt->bind_param("ssssii",$email,$phone,$s3rawurl,$s3finishedurl,$status,$receipt);
 
-$stmt->bind_param("ssssii",$email,$phone,$s3rawurl,$s3finsihedurl,$status,$reciept);
+
+if (!($stmt = $link->prepare("INSERT INTO recordings (id, email, phone, s3rawurl, s3finishedurl, status,receipt) VALUES (NULL,?,?,?,?,?,?)"))) {
+    echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+}
+//$email = $_SESSION['email'];
+//$phone = '2248177955';
+//$s3-finished-url = ' ';
+//$s3-raw-url = ' ';
+//$status = 0;
+//$receipt = md5($url);
+// prepared statements will not accept literals (pass by reference) in bind_params, you need to declare variables
+//$stmt->bind_param("ssssii",$email,$phone,$s3-raw-url,$s3finishedurl,$status,$receipt);
+
+$stmt->bind_param("ssssii",$email,$phone,$s3rawurl,$s3finishedurl,$status,$receipt);
 
 
 if (!$stmt->execute()) {
@@ -97,14 +128,6 @@ printf("%d Row inserted.\n", $stmt->affected_rows);
 /* explicit close recommended */
 //$stmt->close();
 
-
 ?>
 
-<html>
-<head><title>Hello app</title>
-</head>
-<body>
-<hr />
-<a href="admin.php"> Admin </a>
-</body></html>
 
