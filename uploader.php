@@ -31,7 +31,19 @@ if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
 echo '<br>Here is some more debugging info:';
 print_r($_FILES);
 
+// To push the file into the bucket
 
+$s3result = $s3->putObject([
+    'ACL' => 'public-read',
+     'Bucket' => 'raw-gjh',
+      'Key' =>  basename($_FILES['userfile']['name']),
+      'SourceFile' => $uploadfile
+
+
+// Retrieve URL of uploaded Object
+]);
+$url=$s3result['ObjectURL'];
+echo "\n". "This is your URL: " . $url ."\n";
 
 ?>
 
@@ -42,5 +54,3 @@ print_r($_FILES);
 
 <hr />
 <a href="admin.php"> Admin </a>
-
-</body></html>
