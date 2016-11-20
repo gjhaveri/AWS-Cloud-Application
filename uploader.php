@@ -10,7 +10,7 @@ $s3 = new Aws\S3\S3Client([
 
 
 
-// have to hard code this here because index.php doesn't exist
+// using Session Variable
 $_SESSION['email']=$_SESSION['usernames'];
 
 echo "\n" . $_SESSION['email'] ."\n";
