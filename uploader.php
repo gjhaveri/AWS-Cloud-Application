@@ -128,6 +128,28 @@ printf("%d Row inserted.\n", $stmt->affected_rows);
 
 /* explicit close recommended */
 //$stmt->close();
+// PUT MD5 hash of raw URL to SQS QUEUE
+
+$sqsclient = new Aws\Sqs\SqsClient([
+    'region'  => 'us-west-2',
+    'version' => 'latest'
+]);
+
+// Code to retrieve the Queue URLs
+$sqsresult = $sqsclient->getQueueUrl([
+    'QueueName' => 'assignmentqueue', // REQUIRED
+]);
+
+echo $sqsresult['QueueURL'];
+$queueUrl = $sqsresult['QueueURL'];
+
+$sqsresult = $sqsclient->sendMessage([
+    'MessageBody' => $receipt, // REQUIRED
+    'QueueUrl' => $queueUrl // REQUIRED
+]);
+
+echo $sqsreult['MessageId'];
+
 
 ?>
 
