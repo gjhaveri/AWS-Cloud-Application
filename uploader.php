@@ -1,13 +1,11 @@
 <?php
 session_start();
-require 'vendor/autoload.php';
 
+require 'vendor/autoload.php';
 $s3 = new Aws\S3\S3Client([
     'version' => 'latest',
     'region'  => 'us-west-2'
 ]);
-
-
 
 
 // have to hard code this here because index.php doesn't exist
@@ -45,12 +43,12 @@ $s3result = $s3->putObject([
 $url=$s3result['ObjectURL'];
 echo "\n". "This is your URL: " . $url ."\n";
 
-?>
 
-<html>
-<head><title>Hello app</title>
-</head>
-<body>
 
-<hr />
-<a href="admin.php"> Admin </a>
+//Insert sql information
+
+
+$rdsclient = new Aws\Rds\RdsClient([
+  'region'            => 'us-west-2',
+    'version'           => 'latest'
+]);
