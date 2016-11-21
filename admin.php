@@ -76,22 +76,6 @@ input:checked + .slider:before {
 
 <h2>Toggle Switch</h2>
 
-<!--
-<label class="switch">
-  <input type="checkbox">
-  <div class="slider"></div>
-</label>
-
-<label class="switch">
-  <input type="checkbox" checked>
-  <div class="slider"></div>
-</label><br><br>
-
-abel class="switch">
-  <input type="checkbox">
-  <div class="slider round"></div>
-</label>
---->
 <label class="switch">
   <input type="checkbox" checked>
   <div class="slider round"></div>
