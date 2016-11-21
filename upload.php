@@ -1,9 +1,11 @@
-
 <html>
-<head><title>Best Page Ever</title></head>
+<head><title>Best Page Ever</title>
+<link href="styles.css" rel="stylesheet" type="text/css">
+
+</head>
 <body>
 <h1> World</h1>
-
+<br>
 
 <form enctype="multipart/form-data" action="uploader.php" method="POST">
     <!-- MAX_FILE_SIZE must precede the file input field -->
@@ -13,13 +15,16 @@
 <input type="submit" value="submit" />
 </form>
 
+<form action="admin.php">
+<button>Go to Admin</button>
+</form>
 </body>
 </html>
-
 
 <?php
 
 session_start();
+require 'vendor/autoload.php';
 $rdsclient = new Aws\Rds\RdsClient([
   'region'            => 'us-west-2',
     'version'           => 'latest'
@@ -51,18 +56,17 @@ echo "Database created successfully";
 echo "Error creating database: " . $link->error;
 }
 
-
-$create_table = "CREATE TABLE records
+$create_tables = "CREATE TABLE record
 (
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 email VARCHAR(32),
 phone VARCHAR(32),
-s3-raw-url VARCHAR(32),
-s3-finished-url VARCHAR(32),
+s3rawurl VARCHAR(32),
+s3finishedurl VARCHAR(32),
 status INT(1),
 receipt VARCHAR(256)
 )";
 
-$link->query($create_table);
+$link->query($create_tables);
 
 ?>
