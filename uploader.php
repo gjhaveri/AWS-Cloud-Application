@@ -84,12 +84,12 @@ echo "Error creating database: " . $link->error;
 }
 
 
-$delete = "DROP TABLE recordings";
-if ($link->query($delete)=== TRUE){
-echo "Table Dropped";
-} else {
-echo "error" . $link->error;
-}
+//$delete = "DROP TABLE recordings";
+//if ($link->query($delete)=== TRUE){
+//echo "Table Dropped";
+//} else {
+//echo "error" . $link->error;
+//}
 
 
 $create_tbl = "CREATE TABLE recordings
@@ -112,7 +112,7 @@ $email = $_SESSION['email'];
 $phone = '2248177955';
 //$s3finishedurl = ' ';
 $s3rawurl = $url;
-$s3finishedurl = $url;
+$s3finishedurl = ' ';
 $status = 0;
 $receipt = md5($url);
 
@@ -150,16 +150,14 @@ $stmt->close();
 $link->real_query("SELECT * FROM recordings");
 $res = $link->use_result();
 
-echo "<br>Result set order...\n";
+echo "<br>Result set order...\n<br>";
 while ($row = $res->fetch_assoc()) {
-    echo " id = " . $row['id'] . " email =" . $row['email'] . "phone = " . $row['phone'] . "s3rawurl = " . $row['s3rawurl'] . "s3finishedurl = " . $row['s3finishedurl'] . "status = " . $row['status'] . "receipt =" . $row['receipt'] . "\n";
+    echo " id = \n" . $row['id'] . "\n email =" . $row['email'] . "\n phone = " . $row['phone'] . "s3rawurl = \n" . $row['s3rawurl'] . "\n s3finishedurl = \n" . $row['s3finishedurl'] . "\n status = \n" . $row['status'] . "\n receipt =" . $row['receipt'] . "\n";
 }
 
 
 $link->close();
-?>
-// PUT MD5 hash of raw URL to SQS QUEUE
-<?php
+
 require 'vendor/autoload.php';
 
 $sqsclient = new Aws\Sqs\SqsClient([
@@ -181,5 +179,20 @@ $sqsresult = $sqsclient->sendMessage([
 ]);
 
 echo $sqsresult['MessageId'];
+echo "<br>message Sent to Queue"
+>
 
-?>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<link href="styles.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<form action="upload.php" method="post">
+ <input type="submit" value="Go Back">
+</form>
+</body>
+</html>
+
