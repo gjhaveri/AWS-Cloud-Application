@@ -165,23 +165,6 @@ $sqsclient = new Aws\Sqs\SqsClient([
     'version' => 'latest'
 ]);
 
-// Code to retrieve the Queue URLs
-$sqsresult = $sqsclient->getQueueUrl([
-    'QueueName' => 'assignmentqueue' // REQUIRED
-]);
-
-echo $sqsresult['QueueURL'];
-$queueUrl = $sqsresult['QueueURL'];
-
-$sqsresult = $sqsclient->sendMessage([
-    'MessageBody' => $_SESSION['receipts'], // REQUIRED
-    'QueueUrl' => $queueUrl // REQUIRED
-]);
-
-echo $sqsresult['MessageId'];
-echo "<br>message Sent to Queue"
->
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
