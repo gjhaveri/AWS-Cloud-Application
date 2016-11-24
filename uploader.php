@@ -162,8 +162,18 @@ require 'vendor/autoload.php';
 
 $sqsclient = new Aws\Sqs\SqsClient([
     'region'  => 'us-west-2',
-    'version' => 'latest'
-]);
+    'version' => 'latest
+    
+$sqsresult = 'https://sqs.us-west-2.amazonaws.com/599404884853/assignmentqueue';
+$queueUrl = $sqsresult;
+echo $queueUrl;
+$sqsresult = $sqsclient->sendMessage([
+'MessageBody' => $_SESSION['receipts'],
+'QueueUrl' =>$queueUrl]);
+
+echo $sqsresult['MessageId'];
+echo "message sent to queue";
+?>
 
 <html lang="en">
 <head>
