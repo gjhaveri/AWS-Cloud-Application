@@ -155,6 +155,8 @@ while ($row = $res->fetch_assoc()) {
     echo " id = \n" . $row['id'] . "\n email =" . $row['email'] . "\n phone = " . $row['phone'] . "s3rawurl = \n" . $row['s3rawurl'] . "\n s3finishedurl = \n" . $row['s3finishedurl'] . "\n status = \n" . $row['status'] . "\n receipt =" . $row['receipt'] . "\n";
 }
 
+$_SESSION['rawurl']=$row['s3rawurl'];
+echo $_SESSION['rawurl'];
 
 $link->close();
 
