@@ -165,6 +165,7 @@ require 'vendor/autoload.php';
 $sqsclient = new Aws\Sqs\SqsClient([
     'region'  => 'us-west-2',
     'version' => 'latest
+]);
     
 $sqsresult = 'https://sqs.us-west-2.amazonaws.com/599404884853/assignmentqueue';
 $queueUrl = $sqsresult;
