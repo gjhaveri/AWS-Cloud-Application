@@ -7,7 +7,7 @@ sudo apt-get update
 sudo rm /var/lib/dpkg/lock
 sudo dpkg --configure -a
 
-sudo apt-get -y install git apache2 php-xml libapache2-mod-php php php-mysql curl php-curl zip unzip &
+sudo apt-get -y install git apache2 php-xml libapache2-mod-php php php-mysql php-gd curl php-curl zip unzip &
 wait
 export COMPOSER_HOME=/home/ubuntu/
 
