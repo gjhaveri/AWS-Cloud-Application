@@ -11,8 +11,8 @@ echo "Your RDS Database is now available to use"
 echo "Adding a Simple Notification Service to our Application"
 echo "let us create a topic first"
 aws sns create-topic --name cloudassignment
-#echo "Lets Subscribe tothis topic in order to get started"
-#aws sns subscribe --topic-arn arn:aws:sns:us-west-2:599404884853:cloudassignment --protocol email --notification-endpoint itsmeasgaurav@gmail.com
+echo "Lets Subscribe tothis topic in order to get started"
+aws sns subscribe --topic-arn arn:aws:sns:us-west-2:599404884853:cloudassignment --protocol email --notification-endpoint itsmeasgaurav@gmail.com
 echo "Let us Create a SQS Queue"
 aws sqs create-queue --queue-name assignmentqueue
 #echo "Time to Send the message"
