@@ -105,7 +105,25 @@ imagepng($im,'/tmp/rendered.png');
 imagedestroy($im);
 
 // place the rendred image into S3 finished-url bucket
+require 'vendor/autoload.php';
+$s3 = new Aws\S3\S3Client([
+    'version' => 'latest',
+    'region'  => 'us-west-2'
+]);
+
+$key = 'rendered.png';
+$result = $s3->putObject(array(
+'ACL'=>'public-read',
+'Bucket'=>'finished-gjh',
+'Key' => $key,
+'SourceFile'=> '/tmp/rendered.png'
+));
+
+
 // retreive the Object URL
+
+$url=$result['ObjectURL'];
+echo $url;
 // update the ROW in the RDS database - change the status to 1 (finished) and add the S3finshedURL
 
 // Consume the message on the Queue (delete/consume it)
