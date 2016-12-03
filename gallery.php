@@ -67,7 +67,7 @@ $res = $link->use_result();
 echo "<br>Result set order...\n<br>";
 
 while ($row = $res->fetch_assoc()) {
-echo "ID = \n". $row['id'] . "Status = \n" . $row['status'] . "This is raw image" . "<br>";
+echo "ID = \n". $row['id'] . "Status = \n" . $row['status'] . "This is your uploaded image" . "<br>";
     echo "<img src =\" " . $row['s3rawurl'] . "\" />" . "<br>";
 //echo "ID = \n". $row['id'] . "This is finished image with status 1" . "<br>";
 
