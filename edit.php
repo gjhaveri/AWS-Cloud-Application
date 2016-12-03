@@ -82,8 +82,6 @@ $s3rawurl = $row['s3rawurl'];
 
 //$rawurl = $row['s3rawurl'];
 
-echo "hi prathameah". $s3awurl;
-
 // load the "stamp" and photo to apply the water mark to
 $stamp = imagecreatefrompng('https://s3-us-west-2.amazonaws.com/raw-gjh/IIT-logo.png');  // grab this locally or from an S3 bucket probably easier from an S3 bucket...
 $im = imagecreatefromjpeg($s3rawurl);  // replace this path with $rawurl
@@ -124,7 +122,17 @@ $result = $s3->putObject(array(
 
 $url=$result['ObjectURL'];
 echo $url;
+$finishedurl = $url;
+
 // update the ROW in the RDS database - change the status to 1 (finished) and add the S3finshedURL
+$statuses = 1;
+$sql ="UPDATE recordings SET status='$statuses', s3finishedurl= '$finishedurl' WHERE receipt= '$receipt'";
+
+if ($link->query($sql) === TRUE) {
+    echo "Record updated successfully";
+} else {
+    echo "Error updating record: " . $link->error;
+}
 
 // Consume the message on the Queue (delete/consume it)
 
