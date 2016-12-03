@@ -131,7 +131,7 @@ if (!($stmt = $link->prepare("INSERT INTO recordings (id, email, phone, s3rawurl
 // prepared statements will not accept literals (pass by reference) in bind_params, you need to declare variables
 //$stmt->bind_param("ssssii",$email,$phone,$s3-raw-url,$s3finishedurl,$status,$receipt);
 
-$stmt->bind_param("ssssii",$email,$phone,$s3rawurl,$s3finishedurl,$status,$receipt);
+$stmt->bind_param("ssssis",$email,$phone,$s3rawurl,$s3finishedurl,$status,$receipt);
 
 $_SESSION['receipts']=$receipt;
 echo $_SESSION['receipts'];
