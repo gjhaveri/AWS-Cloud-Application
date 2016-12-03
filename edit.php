@@ -28,6 +28,15 @@ $result=$sqsclient->receiveMessage([
 'QueueUrl'=>'https://sqs.us-west-2.amazonaws.com/599404884853/assignmentqueue'
 ]);
 
+foreach($result->get('Messages') as $message){
+
+    echo "<pre>";
+    echo htmlentities( print_r($message['Body'], true ) );
+    echo "</pre>";
+    echo "<hr />";
+}
+
+
 
 // look up the RDS database instance name (URI)
 
