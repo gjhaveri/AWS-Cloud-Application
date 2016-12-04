@@ -10,7 +10,9 @@
 <div style="float: left; width: 130px">
 
 <form action="upload.php">
-<button>Upload</button>
+<head>
+<link href="styles.css" rel="stylesheet" type="text/css">
+</head><button>Upload</button>
 </form>
 </div>
 
@@ -27,6 +29,7 @@
 <button>Logout</button>
 </form>
 </div>
+</head>
 </body>
 </html>
 
@@ -35,15 +38,13 @@
 
 session_start();
 
-echo " <b>Welcome to your Gallery <b> " .  $_SESSION['username'];
+echo " <b>Welcome to your gallery, Monsieur! <b> " .  $_SESSION['username'] . "<br>";
 $email = $_SESSION['email'];
 //echo "\n<br>" . md5($email) . "<br>";
 
 $_SESSION['receipt'] = md5($email);
 
 require 'vendor/autoload.php';
-
-
 $rdsclient = new Aws\Rds\RdsClient([
   'region'            => 'us-west-2',
     'version'           => 'latest'
@@ -51,7 +52,6 @@ $rdsclient = new Aws\Rds\RdsClient([
 $rdsresult = $rdsclient->describeDBInstances([
     'DBInstanceIdentifier' => 'clouddatabases'
 ]);
-
 //$endpoint = $rdsresult['DBInstances'][0]['Endpoint']['Address'];
 //echo $endpoint . "\n";
 $link = mysqli_connect("clouddatabases.clbbdifdgtxm.us-west-2.rds.amazonaws.com:3306","awsdatabase","awsdatabase","school") or die("Error " . mysqli_error($link));
@@ -64,14 +64,16 @@ if (mysqli_connect_errno()) {
 $link->real_query("SELECT * FROM recordings");
 
 $res = $link->use_result();
-echo "<br>Result set order...\n<br>";
+//echo "<br>Result set order...\n<br>";
 
 while ($row = $res->fetch_assoc()) {
-echo "ID = \n". $row['id'] . "Status = \n" . $row['status'] . "This is your uploaded image" . "<br>";
+echo "<br>" . "BEFORE" . "<br>";
     echo "<img src =\" " . $row['s3rawurl'] . "\" />" . "<br>";
-//echo "ID = \n". $row['id'] . "This is finished image with status 1" . "<br>";
 
-//echo "<img src =\"" . $row['s3finishedurl'] . "\"/>" . "<br>";
+
+echo "<br>" . "AFTER" . "<br>";
+
+echo "<img src =\"" . $row['s3finishedurl'] . "\"/>" . "<br>";
 //    echo "<img src =\" " . "This is the raw image " . $row['s3rawurl'] . "\" /><img src =\"" . "This is the finished image" . $row['s3finishedurl'] . "\"/>";
 
 }
@@ -110,4 +112,3 @@ if ($_SESSION['usernames']!="gjhaveri@hawk.iit.edu")
 <?php
 }
 ?>
-
