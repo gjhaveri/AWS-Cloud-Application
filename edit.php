@@ -28,19 +28,27 @@ $result=$sqsclient->receiveMessage([
 'QueueUrl'=>'https://sqs.us-west-2.amazonaws.com/599404884853/assignmentqueue'
 ]);
 
+//foreach ($result->getPath('Messages/*/Body') as $messageBody) {
+  //  echo "<pre>";
+    //echo htmlentities( print_r( $messageBody, true ) );
+  //  echo "</pre>";
+//}
+
 foreach($result->get('Messages') as $message){
 
-    echo "<pre>";
+
+  echo "<pre>";
+echo "<b>This is the message of the latest picture whihc is md5 Hashed <b>" . "<br>";
     echo htmlentities( print_r($message['Body'], true ) );
-    echo "</pre>";
+    echo "</pre>" . "<br>";
+//echo "This is the message of the latest picture which is md5 Hashed";
     echo "<hr />";
 }
+
 
 $result_message = array_pop($result['Messages']);
     $queue_handle = $result_message['ReceiptHandle'];
     $message_json = $result_message['Body'];
-
-
 // look up the RDS database instance name (URI)
 
 $rdsclient = new Aws\Rds\RdsClient([
@@ -58,32 +66,30 @@ if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
     exit();
 }
-
+echo "Image has finished processing, you can view it in Gallery." . "<br>";
 $sql1 = "CREATE DATABASE IF NOT EXISTS school";
 if ($link->query($sql1) === TRUE) {
-echo "Database created successfully<br>";
+//echo "<br>" . "Database created successfully<br>";
 } else {
 echo "Error creating database: " . $link->error;
 }
 
-$receipt=md5($_SESSION['url']);
-// Query the RDS database:  SELECT * FROM records WHERE RECEIPT = $receipt;
 
-$link->real_query("SELECT * FROM recordings");
+// Query the RDS database:  SELECT * FROM records WHERE RECEIPT = $receipt;
+$receipt = $_SESSION['receipts'];
+
+//echo "REC : " . $receipt;
+$link->real_query("SELECT * FROM recordings where receipt= '$receipt'");
 $res = $link->use_result();
-echo "<br>Result set order...\n<br>";
+//echo "Result set order...";
 while ($row = $res->fetch_assoc()) {
-    echo " id = \n" . $row['id'] . "\n email =" . $row['email'] . "\n phone = " . $row['phone'] . "s3rawurl = \n" . $row['s3rawurl'] . "\n s3finishedurl = \n" . $row['s3finishedurl'] . "\n status = \n" . $row['status'] . "\n receipt =" . $row['receipt'] . "\n";
+//        echo " id = \n" . $row['id'] . "\n email =" . $row['email'] . "\n phone = " . $row['phone'] . "s3rawurl = \n" . $row['s3rawurl'] . "\n s3finishedurl = \n" . $row['s3finishedurl'] . "\n status = \n" . $row['status'] . "\n receipt =" . $row['receipt'] . "\n";
 
 $s3rawurl = $row['s3rawurl'];
 
 }
-
-
-
 // For Images
 
-//$rawurl = $row['s3rawurl'];
 
 // load the "stamp" and photo to apply the water mark to
 $stamp = imagecreatefrompng('https://s3-us-west-2.amazonaws.com/raw-gjh/IIT-logo.png');  // grab this locally or from an S3 bucket probably easier from an S3 bucket...
@@ -94,7 +100,6 @@ $marge_right=10;
 $marge_bottom=10;
 $sx = imagesx($stamp);
 $sy = imagesy($stamp);
-echo $sy . "\n";
 
 //Copy the stamp image onto our photo using the margin offsets and the photo
 // width to calculate positioning of the stamp
@@ -106,6 +111,7 @@ imagepng($im,'/tmp/rendered.png');
 imagedestroy($im);
 
 // place the rendred image into S3 finished-url bucket
+
 require 'vendor/autoload.php';
 $s3 = new Aws\S3\S3Client([
     'version' => 'latest',
@@ -124,7 +130,8 @@ $result = $s3->putObject(array(
 // retreive the Object URL
 
 $url=$result['ObjectURL'];
-echo $url;
+//echo $url;
+
 $finishedurl = $url;
 
 // update the ROW in the RDS database - change the status to 1 (finished) and add the S3finshedURL
@@ -132,11 +139,10 @@ $statuses = 1;
 $sql ="UPDATE recordings SET status='$statuses', s3finishedurl= '$finishedurl' WHERE receipt= '$receipt'";
 
 if ($link->query($sql) === TRUE) {
-    echo "Record updated successfully";
+  //  echo "Record updated successfully";
 } else {
     echo "Error updating record: " . $link->error;
 }
-
 // Consume the message on the Queue (delete/consume it)
 
 $queue= 'https://sqs.us-west-2.amazonaws.com/599404884853/assignmentqueue';
@@ -155,7 +161,12 @@ $results = $sqsclient->deleteMessage([
 
 
 
+
+
+
+
 // Send SNS notification to the customer of succeess.
+
 require 'vendor/autoload.php';
 
 $snsclient = new Aws\Sns\SnsClient([
@@ -173,5 +184,18 @@ $snsresults = $snsclient->publish([
 'PhoneNumber'=>'2248177955',
 ]);
 
+// Profit.
 
 ?>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="styles.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<form action="gallery.php" method="post">
+<br> <input type="submit" value="Gallery">
+</form>
+</body>
+</html>
