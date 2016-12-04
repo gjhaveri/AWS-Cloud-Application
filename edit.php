@@ -156,4 +156,22 @@ $results = $sqsclient->deleteMessage([
 
 
 // Send SNS notification to the customer of succeess.
+require 'vendor/autoload.php';
+
+$snsclient = new Aws\Sns\SnsClient([
+
+'region' => 'us-west-2',
+'version' => 'latest'
+]);
+
+
+$snsresults = $snsclient->publish([
+'Message' => 'Image Successfully uploaded &  Modified ',
+//'TopicArn'=> 'arn:aws:sns:us-west-2:599404884853:cloudassignment',
+
+//'MessageAttributes' => ['Image Successfully uploaded &  Modified' => ['DataType' => 'String'],],
+'PhoneNumber'=>'2248177955',
+]);
+
+
 ?>
