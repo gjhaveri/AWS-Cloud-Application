@@ -4,7 +4,7 @@
 
 </head>
 <body>
-<h1> World</h1>
+<h1> Let's upload a file</h1>
 <br>
 
 <form enctype="multipart/form-data" action="uploader.php" method="POST">
@@ -12,6 +12,7 @@
     <input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
 
 <input type="file" name="userfile" />
+
 <input type="submit" value="submit" />
 </form>
 
@@ -37,7 +38,7 @@ $rdsresult = $rdsclient->describeDBInstances([
 
 
 $endpoint = $rdsresult['DBInstances'][0]['Endpoint']['Address'];
-echo $endpoint . "\n";
+//echo $endpoint . "\n";
 
 $link = mysqli_connect($endpoint,"awsdatabase","awsdatabase","school") or die("Error " . mysqli_error($link));
 
@@ -50,11 +51,11 @@ if (mysqli_connect_errno()) {
 }
 $sql1 = "CREATE DATABASE IF NOT EXISTS school";
 if ($link->query($sql1) === TRUE) {
-echo "Database created successfully";
-
+//echo "Database created successfully";
 } else {
-echo "Error creating database: " . $link->error;
+//echo "Error creating database: " . $link->error;
 }
+
 
 $create_tables = "CREATE TABLE record
 (
