@@ -36,6 +36,9 @@ foreach($result->get('Messages') as $message){
     echo "<hr />";
 }
 
+$result_message = array_pop($result['Messages']);
+    $queue_handle = $result_message['ReceiptHandle'];
+    $message_json = $result_message['Body'];
 
 
 // look up the RDS database instance name (URI)
@@ -135,6 +138,22 @@ if ($link->query($sql) === TRUE) {
 }
 
 // Consume the message on the Queue (delete/consume it)
+
+$queue= 'https://sqs.us-west-2.amazonaws.com/599404884853/assignmentqueue';
+
+require 'vendor/autoload.php';
+
+$sqsclient = new Aws\Sqs\SqsClient([
+   'region'  => 'us-west-2',
+   'version' => 'latest'
+]);
+
+$results = $sqsclient->deleteMessage([
+  'QueueUrl' => $queue, // REQUIRED
+  'ReceiptHandle' => $queue_handle // REQUIRED
+]);
+
+
 
 // Send SNS notification to the customer of succeess.
 ?>
