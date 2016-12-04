@@ -49,7 +49,7 @@ $result = $client->describeDBInstances([
 
 
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
-echo $endpoint . "\n";
+//echo $endpoint . "\n";
 
 $link = mysqli_connect($endpoint,"awsdatabase","awsdatabase","school") or die("Error " . mysqli_error($link));
 
@@ -61,7 +61,7 @@ if (mysqli_connect_errno()) {
 
 $sql1 = "CREATE DATABASE IF NOT EXISTS school";
 if ($link->query($sql1) === TRUE) {
-echo "Database created successfully";
+//echo "Database created successfully";
 
 } else {
 echo "Error creating database: " . $link->error;
@@ -99,7 +99,7 @@ $link->query($create_table);
 
 $sql2 = "INSERT INTO `login` (`userid`,`password`) VALUES ('gjhaveri@hawk.iit.edu','gaurav'),('controller@iit.edu','ilovebunnies'),('hajek@iit.edu','iit')";
 if ($link->query($sql2) === TRUE) {
-echo "Data inserted successfully";
+//echo "Data inserted successfully";
 } else {
 echo "Error creating database: " . $link->error;
 }
