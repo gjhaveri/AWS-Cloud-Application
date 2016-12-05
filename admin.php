@@ -53,4 +53,37 @@ input:focus + .slider {
 
 input:checked + .slider:before {
   -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+</style>
+</head>
+<body>
+<form action="restore.php" method="post">
+
+    <input type="submit" value="Backup Database">
+</form>
+
+<form action="import.php" method="post">
+    <input type="submit" value="Import Database">
+</form>
+
+<h2>Toggle Switch</h2>
+
+<label class="switch">
+  <input type="checkbox" checked>
+  <div class="slider round"></div>
+</label>
+
+</body>
+</html>
                                                                                                                                                                               1,0-1         Top
