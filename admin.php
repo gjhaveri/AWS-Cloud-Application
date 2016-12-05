@@ -68,14 +68,19 @@ input:checked + .slider:before {
 </style>
 </head>
 <body>
-<form action="restore.php" method="post">
+<form action="backup.php" method="post">
 
     <input type="submit" value="Backup Database">
 </form>
 
-<form action="import.php" method="post">
-    <input type="submit" value="Import Database">
+<form action="export.php" method="post">
+    <input type="submit" value="Export Database">
 </form>
+  
+ <form action="restore.php" method="post">
+    <input type="submit" value="Restore Database">
+</form>
+  
 
 <h2>Toggle Switch</h2>
 
