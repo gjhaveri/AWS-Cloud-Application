@@ -27,5 +27,5 @@ sudo mv vendor /var/www/html/
 
 #sudo git clone https://github.com/illinoistech-itm/gjhaveri.git
 
-sudo mv /home/ubuntu/gjhaveri/*.php  /var/www/html/
+sudo mv /home/ubuntu/gjhaveri/Application/*.php  /var/www/html/
 #git@github.com:illinoistech-itm/gjhaveri.git /home/ubuntu/gjhaveri

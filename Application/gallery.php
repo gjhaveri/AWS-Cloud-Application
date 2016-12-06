@@ -52,9 +52,9 @@ $rdsclient = new Aws\Rds\RdsClient([
 $rdsresult = $rdsclient->describeDBInstances([
     'DBInstanceIdentifier' => 'clouddatabases'
 ]);
-//$endpoint = $rdsresult['DBInstances'][0]['Endpoint']['Address'];
+$endpoint = $rdsresult['DBInstances'][0]['Endpoint']['Address'];
 //echo $endpoint . "\n";
-$link = mysqli_connect("clouddatabases.clbbdifdgtxm.us-west-2.rds.amazonaws.com:3306","awsdatabase","awsdatabase","school") or die("Error " . mysqli_error($link));
+$link = mysqli_connect("$endpoint","awsdatabase","awsdatabase","school") or die("Error " . mysqli_error($link));
 /* check connection */
 if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());

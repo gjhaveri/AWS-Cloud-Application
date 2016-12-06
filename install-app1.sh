@@ -27,11 +27,8 @@ sudo mv vendor /var/www/html/
 
 #sudo git clone https://github.com/illinoistech-itm/gjhaveri.git
 
-sudo mv /home/ubuntu/gjhaveri/*.php  /var/www/html/
+sudo mv /home/ubuntu/gjhaveri/Application/*.php  /var/www/html/
 
-//crontab -l > mycron1
-#echo new cron into cron file
-//* * * * * sudo php /var/www/html/edit.php >> mycron1
-#install new cron file
-//crontab mycron1
-//rm mycron1
+
+crontab -l | { cat; echo "* * * * * cd /var/www/html && sudo php /var/www/html/edit.php"; } | crontab -
+
