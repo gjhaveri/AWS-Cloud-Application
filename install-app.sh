@@ -29,3 +29,4 @@ sudo mv vendor /var/www/html/
 
 sudo mv /home/ubuntu/gjhaveri/Application/*.php  /var/www/html/
 #git@github.com:illinoistech-itm/gjhaveri.git /home/ubuntu/gjhaveri
+sudo service restart apache2

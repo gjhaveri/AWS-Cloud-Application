@@ -31,4 +31,4 @@ sudo mv /home/ubuntu/gjhaveri/Application/*.php  /var/www/html/
 
 
 crontab -l | { cat; echo "* * * * * cd /var/www/html && sudo php /var/www/html/edit.php"; } | crontab -
-
+sudo service apache2 restart
